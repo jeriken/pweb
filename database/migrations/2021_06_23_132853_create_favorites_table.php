@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePicturesTable extends Migration
+class CreateFavoritesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,14 @@ class CreatePicturesTable extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable('pictures')){
-            Schema::create('pictures', function (Blueprint $table) {
-                $table->id('pict_id');
-                $table->string('title', 45);
-                $table->string('caption');
-                $table->string('pict_url', 45);
-                $table->bigInteger('cat_id')->unsigned();
-                $table->bigInteger('user_id')->unsigned();
-                $table->timestamps();
-            });
-        }
+        Schema::create('favorites', function (Blueprint $table) {
+            $table->id('fav_id');
+            $table->bigInteger('cat_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->timestamps();
+        });
 
-        
-        Schema::table('pictures', function (Blueprint $table) {
+        Schema::table('favorites', function (Blueprint $table) {
             $table->foreign('cat_id')->references('cat_id')->on('categories')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('user_id')->on('users')
@@ -41,6 +35,6 @@ class CreatePicturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pictures');
+        Schema::dropIfExists('favorites');
     }
 }
