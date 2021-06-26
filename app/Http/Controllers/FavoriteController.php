@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
-use App\Models\Picture;
+use App\Models\Favorite;
 use Validator;
-use App\Http\Resources\Picture as PictureResource;
+use App\Http\Resources\Favorite as FavoriteResource;
 
-class PictureController extends BaseController
+class FavoriteController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class PictureController extends BaseController
      */
     public function index()
     {
-        $picture = Picture::all();
+        $favorite = Favorite::all();
 
-        return $this->sendResponse(PictureResource::collection($picture), 'Picture retrieved successfully.');
+        return $this->sendResponse(FavoriteResource::collection($favorite), 'Favorite retrieved successfully.');
     }
 
     /**
@@ -43,9 +43,6 @@ class PictureController extends BaseController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'title' => 'required',
-            'caption' => 'required',
-            'pict_url' => 'required',
             'cat_id' => 'required',
             'user_id' => 'required',
         ]);
@@ -54,9 +51,9 @@ class PictureController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());       
         }
 
-        $picture = Picture::create($input);
+        $favorite = Favorite::create($input);
 
-        return $this->sendResponse(new PictureResource($picture), 'Picture created successfully.');
+        return $this->sendResponse(new FavoriteResource($favorite), 'Favorite created successfully.');
     }
 
     /**
@@ -67,13 +64,13 @@ class PictureController extends BaseController
      */
     public function show($id)
     {
-        $picture = Picture::find($id);
+        $favorite = Favorite::find($id);
 
-        if (is_null($picture)) {
-            return $this->sendError('Picture not found.');
+        if (is_null($favorite)) {
+            return $this->sendError('Favorite not found.');
         }
 
-        return $this->sendResponse(new PictureResource($picture), 'Picture retrieved successfully.');
+        return $this->sendResponse(new FavoriteResource($favorite), 'Favorite retrieved successfully.');
     }
 
     /**
@@ -94,14 +91,11 @@ class PictureController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Picture $picture)
+    public function update(Request $request, Favorite $favorite)
     {
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'title' => 'required',
-            'caption' => 'required',
-            'pict_url' => 'required',
             'cat_id' => 'required',
             'user_id' => 'required',
         ]);
@@ -110,14 +104,11 @@ class PictureController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());       
         }
 
-        $picture->title = $input['title'];
-        $picture->caption = $input['caption'];
-        $picture->pict_url = $input['pict_url'];
-        $picture->cat_id = $input['cat_id'];
-        $picture->user_id = $input['user_id'];
-        $picture->save();
+        $favorite->cat_id = $input['cat_id'];
+        $favorite->user_id = $input['user_id'];
+        $favorite->save();
 
-        return $this->sendResponse(new PictureResource($picture), 'Picture updated successfully.');
+        return $this->sendResponse(new FavoriteResource($favorite), 'Favorite updated successfully.');
     }
 
     /**
@@ -126,12 +117,10 @@ class PictureController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Picture $picture)
+    public function destroy(Favorite $favorite)
     {
-        $picture->delete();
+        $favorite->delete();
 
-        return $this->sendResponse([], 'Picture deleted successfully.');
+        return $this->sendResponse([], 'Favorite deleted successfully.');
     }
-} 
-
-
+}

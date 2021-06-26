@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
-use App\Models\Picture;
+use App\Models\Like;
 use Validator;
-use App\Http\Resources\Picture as PictureResource;
+use App\Http\Resources\Like as LikeResource;
 
-class PictureController extends BaseController
+class LikeController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class PictureController extends BaseController
      */
     public function index()
     {
-        $picture = Picture::all();
+        $like = Like::all();
 
-        return $this->sendResponse(PictureResource::collection($picture), 'Picture retrieved successfully.');
+        return $this->sendResponse(LikeResource::collection($like), 'Like retrieved successfully.');
     }
 
     /**
@@ -43,10 +43,7 @@ class PictureController extends BaseController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'title' => 'required',
-            'caption' => 'required',
-            'pict_url' => 'required',
-            'cat_id' => 'required',
+            'pict_id' => 'required',
             'user_id' => 'required',
         ]);
 
@@ -54,9 +51,9 @@ class PictureController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());       
         }
 
-        $picture = Picture::create($input);
+        $like = Like::create($input);
 
-        return $this->sendResponse(new PictureResource($picture), 'Picture created successfully.');
+        return $this->sendResponse(new LikeResource($like), 'Like created successfully.');
     }
 
     /**
@@ -67,13 +64,13 @@ class PictureController extends BaseController
      */
     public function show($id)
     {
-        $picture = Picture::find($id);
+        $like = Like::find($id);
 
-        if (is_null($picture)) {
-            return $this->sendError('Picture not found.');
+        if (is_null($like)) {
+            return $this->sendError('Like not found.');
         }
 
-        return $this->sendResponse(new PictureResource($picture), 'Picture retrieved successfully.');
+        return $this->sendResponse(new LikeResource($like), 'Like retrieved successfully.');
     }
 
     /**
@@ -94,15 +91,12 @@ class PictureController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Picture $picture)
+    public function update(Request $request, Like $like)
     {
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'title' => 'required',
-            'caption' => 'required',
-            'pict_url' => 'required',
-            'cat_id' => 'required',
+            'pict_id' => 'required',
             'user_id' => 'required',
         ]);
 
@@ -110,14 +104,11 @@ class PictureController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());       
         }
 
-        $picture->title = $input['title'];
-        $picture->caption = $input['caption'];
-        $picture->pict_url = $input['pict_url'];
-        $picture->cat_id = $input['cat_id'];
-        $picture->user_id = $input['user_id'];
-        $picture->save();
+        $like->pict_id = $input['pict_id'];
+        $like->user_id = $input['user_id'];
+        $like->save();
 
-        return $this->sendResponse(new PictureResource($picture), 'Picture updated successfully.');
+        return $this->sendResponse(new LikeResource($like), 'Like updated successfully.');
     }
 
     /**
@@ -126,12 +117,10 @@ class PictureController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Picture $picture)
+    public function destroy(Like $like)
     {
-        $picture->delete();
+        $like->delete();
 
-        return $this->sendResponse([], 'Picture deleted successfully.');
+        return $this->sendResponse([], 'Like deleted successfully.');
     }
-} 
-
-
+}

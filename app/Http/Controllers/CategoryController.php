@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
-use App\Models\Picture;
+use App\Models\Category;
 use Validator;
-use App\Http\Resources\Picture as PictureResource;
+use App\Http\Resources\Category as CategoryResource;
 
-class PictureController extends BaseController
+class CategoryController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class PictureController extends BaseController
      */
     public function index()
     {
-        $picture = Picture::all();
+        $category = Category::all();
 
-        return $this->sendResponse(PictureResource::collection($picture), 'Picture retrieved successfully.');
+        return $this->sendResponse(CategoryResource::collection($category), 'Category retrieved successfully.');
     }
 
     /**
@@ -44,19 +44,15 @@ class PictureController extends BaseController
 
         $validator = Validator::make($input, [
             'title' => 'required',
-            'caption' => 'required',
-            'pict_url' => 'required',
-            'cat_id' => 'required',
-            'user_id' => 'required',
         ]);
 
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
 
-        $picture = Picture::create($input);
+        $category = Category::create($input);
 
-        return $this->sendResponse(new PictureResource($picture), 'Picture created successfully.');
+        return $this->sendResponse(new CategoryResource($category), 'Category created successfully.');
     }
 
     /**
@@ -67,13 +63,13 @@ class PictureController extends BaseController
      */
     public function show($id)
     {
-        $picture = Picture::find($id);
+        $category = Category::find($id);
 
-        if (is_null($picture)) {
-            return $this->sendError('Picture not found.');
+        if (is_null($category)) {
+            return $this->sendError('Category not found.');
         }
 
-        return $this->sendResponse(new PictureResource($picture), 'Picture retrieved successfully.');
+        return $this->sendResponse(new CategoryResource($category), 'Category retrieved successfully.');
     }
 
     /**
@@ -94,30 +90,22 @@ class PictureController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Picture $picture)
+    public function update(Request $request, Category $category)
     {
         $input = $request->all();
 
         $validator = Validator::make($input, [
             'title' => 'required',
-            'caption' => 'required',
-            'pict_url' => 'required',
-            'cat_id' => 'required',
-            'user_id' => 'required',
         ]);
 
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
 
-        $picture->title = $input['title'];
-        $picture->caption = $input['caption'];
-        $picture->pict_url = $input['pict_url'];
-        $picture->cat_id = $input['cat_id'];
-        $picture->user_id = $input['user_id'];
-        $picture->save();
+        $category->title = $input['title'];
+        $category->save();
 
-        return $this->sendResponse(new PictureResource($picture), 'Picture updated successfully.');
+        return $this->sendResponse(new CategoryResource($category), 'Category updated successfully.');
     }
 
     /**
@@ -126,12 +114,10 @@ class PictureController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Picture $picture)
+    public function destroy(Category $category)
     {
-        $picture->delete();
+        $category->delete();
 
-        return $this->sendResponse([], 'Picture deleted successfully.');
+        return $this->sendResponse([], 'Category deleted successfully.');
     }
-} 
-
-
+}

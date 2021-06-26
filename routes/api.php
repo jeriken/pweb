@@ -24,11 +24,17 @@ use App\Http\Controllers\UserController;
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 
+// Category
+Route::resource('category', CategoryController::class);
 // Picture
 Route::resource('picture', PictureController::class);
 // Bookmark
 Route::resource('bookmark', BookmarkController::class);
-// 
+// Like
+Route::resource('like', LikeController::class);
+// Favorite
+Route::resource('favorite', FavoriteController::class);
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

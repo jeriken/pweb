@@ -11,6 +11,11 @@ class Like extends Model
 
     protected $table = 'likes';
 
+    protected $fillable = [
+        'pict_id',
+        'user_id'
+    ];
+
     public function like() {
         return $this->hasMany(Picture::class);
         return $this->hasMany(User::class);

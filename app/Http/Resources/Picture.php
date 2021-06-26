@@ -19,6 +19,7 @@ class Picture extends JsonResource
             'title' => $this->title,
             'caption' => $this->caption,
             'pict_url' => $this->pict_url,
+            'cat_id' => $this->cat_id,
             'user_id' => $this->user_id,
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),

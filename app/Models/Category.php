@@ -11,6 +11,10 @@ class Category extends Model
 
     protected $table = 'categories';
 
+    protected $fillable = [
+        'title',
+    ];
+
     public function relasi()
     {
         return $this->belongsTo('App\Models\Picture');

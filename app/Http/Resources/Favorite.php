@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Bookmark extends JsonResource
+class Favorite extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,7 @@ class Bookmark extends JsonResource
     {
         return [
             'id' => $this->id,
-            'pict_id' => $this->pict_id,
+            'cat_id' => $this->cat_id,
             'user_id' => $this->user_id,
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),

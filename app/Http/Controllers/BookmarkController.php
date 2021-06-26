@@ -8,7 +8,7 @@ use App\Models\Bookmark;
 use Validator;
 use App\Http\Resources\Bookmark as BookmarkResource;
 
-class BookmarkController extends Controller
+class BookmarkController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -104,7 +104,7 @@ class BookmarkController extends Controller
             return $this->sendError('Validation Error.', $validator->errors());       
         }
 
-        $bookmark->cat_id = $input['pict_id'];
+        $bookmark->pict_id = $input['pict_id'];
         $bookmark->user_id = $input['user_id'];
         $bookmark->save();
 
@@ -117,7 +117,7 @@ class BookmarkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Bookmark $bookmark)
     {
         $bookmark->delete();
 
