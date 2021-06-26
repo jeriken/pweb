@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bookmark extends Model
+class Like extends Model
 {
     use HasFactory;
 
-    protected $table = 'bookmarks';
+    protected $table = 'likes';
 
-    public function bookmark() {
+    public function like() {
         return $this->hasMany(Picture::class);
         return $this->hasMany(User::class);
     }

@@ -15,7 +15,7 @@ class CreatePicturesTable extends Migration
     {
         if(!Schema::hasTable('pictures')){
             Schema::create('pictures', function (Blueprint $table) {
-                $table->id('pict_id');
+                $table->id();
                 $table->string('title');
                 $table->string('caption');
                 $table->string('pict_url');
@@ -27,9 +27,9 @@ class CreatePicturesTable extends Migration
 
 
         Schema::table('pictures', function (Blueprint $table) {
-            $table->foreign('cat_id')->references('cat_id')->on('categories')
+            $table->foreign('cat_id')->references('id')->on('categories')
                 ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('user_id')->references('user_id')->on('users')
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

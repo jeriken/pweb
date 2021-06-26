@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'picture'
     ];
 
     /**
@@ -41,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function relasi()
+    {
+        return $this->belongsTo('App\Models\Picture');
+        return $this->belongsTo('App\Models\Bookmark');
+        return $this->belongsTo('App\Models\Like');
+        return $this->belongsTo('App\Models\Favorite');
+    }
 }
