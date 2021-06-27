@@ -47,8 +47,8 @@ class BookmarkController extends BaseController
             'user_id' => 'required',
         ]);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
 
         $bookmark = Bookmark::create($input);
@@ -100,8 +100,8 @@ class BookmarkController extends BaseController
             'user_id' => 'required',
         ]);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
 
         $bookmark->pict_id = $input['pict_id'];

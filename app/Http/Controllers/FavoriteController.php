@@ -47,8 +47,8 @@ class FavoriteController extends BaseController
             'user_id' => 'required',
         ]);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
 
         $favorite = Favorite::create($input);
@@ -100,8 +100,8 @@ class FavoriteController extends BaseController
             'user_id' => 'required',
         ]);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
 
         $favorite->cat_id = $input['cat_id'];

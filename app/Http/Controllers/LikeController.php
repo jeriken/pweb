@@ -47,8 +47,8 @@ class LikeController extends BaseController
             'user_id' => 'required',
         ]);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
 
         $like = Like::create($input);
@@ -100,8 +100,8 @@ class LikeController extends BaseController
             'user_id' => 'required',
         ]);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
 
         $like->pict_id = $input['pict_id'];

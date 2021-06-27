@@ -46,8 +46,8 @@ class CategoryController extends BaseController
             'title' => 'required',
         ]);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
 
         $category = Category::create($input);
@@ -98,8 +98,8 @@ class CategoryController extends BaseController
             'title' => 'required',
         ]);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
 
         $category->title = $input['title'];

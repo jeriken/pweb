@@ -40,20 +40,24 @@ class PictureController extends BaseController
      */
     public function store(Request $request)
     {
-        $input = $request->all();
 
         $validator = Validator::make($input, [
             'title' => 'required',
             'caption' => 'required',
-            'pict_url' => 'required',
+            'pict_url' => 'required|mimes:jpeg,png,jpg|max:2048',
             'cat_id' => 'required',
             'user_id' => 'required',
         ]);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
 
+        $input = $request->all();
+        // Image
+        $imageName = time() . '.' . $request->picture->extension();
+        $request->picture->move(public_path('images/picture/'), $imageName);
+        $input['pict_url'] = 'images/picture/' .$imageName;
         $picture = Picture::create($input);
 
         return $this->sendResponse(new PictureResource($picture), 'Picture created successfully.');
@@ -106,8 +110,8 @@ class PictureController extends BaseController
             'user_id' => 'required',
         ]);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
 
         $picture->title = $input['title'];
@@ -132,6 +136,4 @@ class PictureController extends BaseController
 
         return $this->sendResponse([], 'Picture deleted successfully.');
     }
-} 
-
-
+}
