@@ -91,22 +91,12 @@ class FavoriteController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Favorite $favorite)
+    public function update($id, Request $request)
     {
         $input = $request->all();
 
-        $validator = Validator::make($input, [
-            'cat_id' => 'required',
-            'user_id' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
-        }
-
-        $favorite->cat_id = $input['cat_id'];
-        $favorite->user_id = $input['user_id'];
-        $favorite->save();
+        $favorite = Favorite::findOrFail($id);
+        $favorite->update($input);
 
         return $this->sendResponse(new FavoriteResource($favorite), 'Favorite updated successfully.');
     }
@@ -117,8 +107,9 @@ class FavoriteController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Favorite $favorite)
+    public function destroy($id)
     {
+        $favorite = Favorite::findOrFail($id);
         $favorite->delete();
 
         return $this->sendResponse([], 'Favorite deleted successfully.');

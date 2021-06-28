@@ -91,22 +91,12 @@ class LikeController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Like $like)
+    public function update($id, Request $request)
     {
         $input = $request->all();
 
-        $validator = Validator::make($input, [
-            'pict_id' => 'required',
-            'user_id' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
-        }
-
-        $like->pict_id = $input['pict_id'];
-        $like->user_id = $input['user_id'];
-        $like->save();
+        $like = Like::findOrFail($id);
+        $like->update($input);
 
         return $this->sendResponse(new LikeResource($like), 'Like updated successfully.');
     }
@@ -117,8 +107,9 @@ class LikeController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Like $like)
+    public function destroy($id)
     {
+        $like = Like::findOrFail($id);
         $like->delete();
 
         return $this->sendResponse([], 'Like deleted successfully.');

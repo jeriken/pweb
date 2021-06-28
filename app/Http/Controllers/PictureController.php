@@ -40,6 +40,7 @@ class PictureController extends BaseController
      */
     public function store(Request $request)
     {
+        $input = $request->all();
 
         $validator = Validator::make($input, [
             'title' => 'required',
@@ -53,10 +54,9 @@ class PictureController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $input = $request->all();
         // Image
-        $imageName = time() . '.' . $request->picture->extension();
-        $request->picture->move(public_path('images/picture/'), $imageName);
+        $imageName = time() . '.' . $request->pict_url->extension();
+        $request->pict_url->move(public_path('images/picture/'), $imageName);
         $input['pict_url'] = 'images/picture/' .$imageName;
         $picture = Picture::create($input);
 
@@ -98,28 +98,16 @@ class PictureController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Picture $picture)
+    public function update($id, Request $request)
     {
         $input = $request->all();
-
-        $validator = Validator::make($input, [
-            'title' => 'required',
-            'caption' => 'required',
-            'pict_url' => 'required',
-            'cat_id' => 'required',
-            'user_id' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
+        if($request->pict_url){
+            $imageName = time() . '.' . $request->pict_url->extension();
+            $request->pict_url->move(public_path('images/picture/'), $imageName);
+            $input['pict_url'] = 'images/picture/' .$imageName;
         }
-
-        $picture->title = $input['title'];
-        $picture->caption = $input['caption'];
-        $picture->pict_url = $input['pict_url'];
-        $picture->cat_id = $input['cat_id'];
-        $picture->user_id = $input['user_id'];
-        $picture->save();
+        $picture = Picture::findOrFail($id);
+        $picture->update($input);
 
         return $this->sendResponse(new PictureResource($picture), 'Picture updated successfully.');
     }
@@ -130,8 +118,9 @@ class PictureController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Picture $picture)
+    public function destroy($id)
     {
+        $picture = Picture::findOrFail($id);
         $picture->delete();
 
         return $this->sendResponse([], 'Picture deleted successfully.');

@@ -90,20 +90,12 @@ class CategoryController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update($id, Request $request)
     {
         $input = $request->all();
 
-        $validator = Validator::make($input, [
-            'title' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
-        }
-
-        $category->title = $input['title'];
-        $category->save();
+        $category = Category::findOrFail($id);
+        $category->update($input);
 
         return $this->sendResponse(new CategoryResource($category), 'Category updated successfully.');
     }
@@ -114,8 +106,9 @@ class CategoryController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
+        $category = Category::findOrFail($id);
         $category->delete();
 
         return $this->sendResponse([], 'Category deleted successfully.');

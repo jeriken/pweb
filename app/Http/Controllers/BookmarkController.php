@@ -91,22 +91,12 @@ class BookmarkController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bookmark $bookmark)
+    public function update($id, Request $request)
     {
         $input = $request->all();
 
-        $validator = Validator::make($input, [
-            'pict_id' => 'required',
-            'user_id' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
-        }
-
-        $bookmark->pict_id = $input['pict_id'];
-        $bookmark->user_id = $input['user_id'];
-        $bookmark->save();
+        $bookmark = Bookmark::findOrFail($id);
+        $bookmark->update($input);
 
         return $this->sendResponse(new BookmarkResource($bookmark), 'Bookmark updated successfully.');
     }
@@ -117,8 +107,9 @@ class BookmarkController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bookmark $bookmark)
+    public function destroy($id)
     {
+        $bookmark = Bookmark::findOrFail($id);
         $bookmark->delete();
 
         return $this->sendResponse([], 'Bookmark deleted successfully.');
