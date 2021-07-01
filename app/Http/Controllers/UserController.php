@@ -64,7 +64,7 @@ class UserController extends BaseController
         // Image
         $imageName = time() . '.' . $request->picture->extension();
         $request->picture->move(public_path('images/users/'), $imageName);
-        $input[' picture'] = 'images/users/' .$imageName;
+        $input['picture'] = 'images/users/' .$imageName;
         // Username
         $generator = new Generator();
         $input['username'] = $generator->generate($input['name']);
@@ -92,6 +92,27 @@ class UserController extends BaseController
         } else {
             return $this->sendError('Unauthorised.', ['error' => 'Unauthorised']);
         }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update($id, Request $request)
+    {
+        $input = $request->all();
+        if($request->picture){
+            $imageName = time() . '.' . $request->picture->extension();
+            $request->picture->move(public_path('images/users/'), $imageName);
+            $input['picture'] = 'images/users/' .$imageName;
+        }
+        $user = User::findOrFail($id);
+        $user->update($input);
+
+        return $this->sendResponse(new UserResource($user), 'User updated successfully.');
     }
 
 }

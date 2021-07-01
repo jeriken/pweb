@@ -35,6 +35,7 @@ Route::group([
     ], function () {
         Route::get('show/{id}', [UserController::class, 'show']);
         Route::get('index', [UserController::class, 'index']);
+        Route::post('update/{id}', [UserController::class, 'update']);
     });
 });
 
