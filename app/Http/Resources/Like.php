@@ -16,8 +16,8 @@ class Like extends JsonResource
     {
         return [
             'id' => $this->id,
-            'pict_id' => $this->pict_id,
-            'user_id' => $this->user_id,
+            'pict_id' => $this->picture,
+            'user_id' => $this->user,
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),
         ];

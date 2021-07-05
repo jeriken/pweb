@@ -17,7 +17,7 @@ class FavoriteController extends BaseController
      */
     public function index()
     {
-        $favorite = Favorite::all();
+        $favorite = Favorite::paginate(15);
 
         return $this->sendResponse(FavoriteResource::collection($favorite), 'Favorite retrieved successfully.');
     }

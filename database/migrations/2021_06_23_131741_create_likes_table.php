@@ -21,10 +21,8 @@ class CreateLikesTable extends Migration
         });
 
         Schema::table('likes', function (Blueprint $table) {
-            $table->foreign('picture_id')->references('id')->on('pictures')
-                ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('picture_id')->references('id')->on('pictures');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

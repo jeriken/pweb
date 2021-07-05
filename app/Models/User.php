@@ -53,14 +53,14 @@ class User extends Authenticatable
     }
     
     public function bookmark(){
-        return $this->belongsToMany('App\Models\Bookmark');
+        return $this->hasMany(Bookmark::class);
     }
 
     public function like(){
-        return $this->belongsToMany('App\Models\Like');
+        return $this->hasMany(Like::class);
     }
 
     public function favorite(){
-        return $this->belongsToMany('App\Models\Favorite');
+        return $this->hasMany(Favorite::class);
     }
 }

@@ -17,7 +17,7 @@ class BookmarkController extends BaseController
      */
     public function index()
     {
-        $bookmark = Bookmark::all();
+        $bookmark = Bookmark::paginate(15);
 
         return $this->sendResponse(BookmarkResource::collection($bookmark), 'Bookmark retrieved successfully.');
     }

@@ -17,7 +17,7 @@ class LikeController extends BaseController
      */
     public function index()
     {
-        $like = Like::all();
+        $like = Like::paginate(15);
 
         return $this->sendResponse(LikeResource::collection($like), 'Like retrieved successfully.');
     }

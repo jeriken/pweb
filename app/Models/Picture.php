@@ -31,11 +31,12 @@ class Picture extends Model
 
     public function like()
     {
-        return $this->belongsToMany('App\Models\Like');
+        return $this->hasMany(Like::class);
     }
 
     public function bookmark()
     {
-        return $this->belongsToMany('App\Models\Bookmark');
+        return $this->hasMany(Bookmark::class);
     }
+
 }

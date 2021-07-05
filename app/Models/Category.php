@@ -19,4 +19,9 @@ class Category extends Model
     {
         return $this->hasMany('App\Models\Picture');
     }
+
+    public function favorite()
+    {
+        return $this->hasMany(Favorite::class);
+    }
 }
