@@ -15,7 +15,7 @@ class Category extends Model
         'title',
     ];
 
-    public function relasi()
+    public function picture()
     {
         return $this->hasMany('App\Models\Picture');
     }

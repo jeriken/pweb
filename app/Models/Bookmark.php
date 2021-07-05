@@ -16,8 +16,13 @@ class Bookmark extends Model
         'user_id'
     ];
 
-    public function relasi() {
-        return $this->hasMany(Picture::class);
-        return $this->hasMany(User::class);
+    public function picture()
+    {
+        return $this->belongsToMany(Picture::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsToMany(User::class);
     }
 }

@@ -48,11 +48,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function relasi()
-    {
+    public function picture(){
         return $this->hasMany('App\Models\Picture');
-        return $this->hasMany('App\Models\Bookmark');
-        return $this->hasMany('App\Models\Like');
-        return $this->hasMany('App\Models\Favorite');
+    }
+    
+    public function bookmark(){
+        return $this->belongsToMany('App\Models\Bookmark');
+    }
+
+    public function like(){
+        return $this->belongsToMany('App\Models\Like');
+    }
+
+    public function favorite(){
+        return $this->belongsToMany('App\Models\Favorite');
     }
 }

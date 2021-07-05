@@ -29,9 +29,13 @@ class Picture extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function relasi()
+    public function like()
     {
-        return $this->hasMany('App\Models\Like');
-        return $this->hasMany('App\Models\Bookmark');
+        return $this->belongsToMany('App\Models\Like');
+    }
+
+    public function bookmark()
+    {
+        return $this->belongsToMany('App\Models\Bookmark');
     }
 }
