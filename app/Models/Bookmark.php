@@ -12,11 +12,11 @@ class Bookmark extends Model
     protected $table = 'bookmarks';
 
     protected $fillable = [
-        'pict_id',
+        'picture_id',
         'user_id'
     ];
 
-    public function bookmark() {
+    public function relasi() {
         return $this->hasMany(Picture::class);
         return $this->hasMany(User::class);
     }

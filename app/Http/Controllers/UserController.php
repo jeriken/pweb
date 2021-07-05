@@ -20,9 +20,9 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $picture = User::all();
+        $user = User::all();
 
-        return $this->sendResponse(UserResource::collection($picture), 'User retrieved successfully.');
+        return $this->sendResponse(UserResource::collection($user), 'User retrieved successfully.');
     }
 
     /**

@@ -17,6 +17,6 @@ class Category extends Model
 
     public function relasi()
     {
-        return $this->belongsTo('App\Models\Picture');
+        return $this->hasMany('App\Models\Picture');
     }
 }

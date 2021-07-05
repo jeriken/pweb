@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\User as UserResource;
 
 class Picture extends JsonResource
 {
@@ -19,8 +20,8 @@ class Picture extends JsonResource
             'title' => $this->title,
             'caption' => $this->caption,
             'pict_url' => $this->pict_url,
-            'cat_id' => $this->cat_id,
-            'user_id' => $this->user_id,
+            'category_id' => $this->category,
+            'user_id' => $this->user,
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),
         ];

@@ -17,19 +17,21 @@ class PictureController extends BaseController
      */
     public function index()
     {
-        $picture = Picture::all();
+        $picture = Picture::paginate(15);
 
         return $this->sendResponse(PictureResource::collection($picture), 'Picture retrieved successfully.');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function postby($id)
     {
-        //
+        $picture = Picture::where("user_id",$id)->first();
+
+        return $this->sendResponse(new PictureResource($picture), 'Picture retrieved successfully.');
     }
 
     /**
@@ -46,7 +48,7 @@ class PictureController extends BaseController
             'title' => 'required',
             'caption' => 'required',
             'pict_url' => 'required|mimes:jpeg,png,jpg|max:2048',
-            'cat_id' => 'required',
+            'category_id' => 'required',
             'user_id' => 'required',
         ]);
 
@@ -78,17 +80,6 @@ class PictureController extends BaseController
         }
 
         return $this->sendResponse(new PictureResource($picture), 'Picture retrieved successfully.');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

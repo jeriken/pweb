@@ -15,19 +15,23 @@ class Picture extends Model
         'title',
         'caption',
         'pict_url',
-        'cat_id',
+        'category_id',
         'user_id'
     ];
 
-    public function picture() {
-        return $this->hasMany(User::class);
-        return $this->hasMany(Category::class);
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function relasi()
     {
-        return $this->belongsTo('App\Models\Like');
-        return $this->belongsTo('App\Models\Bookmark');
+        return $this->hasMany('App\Models\Like');
+        return $this->hasMany('App\Models\Bookmark');
     }
 }
-

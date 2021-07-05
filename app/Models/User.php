@@ -50,9 +50,9 @@ class User extends Authenticatable
 
     public function relasi()
     {
-        return $this->belongsTo('App\Models\Picture');
-        return $this->belongsTo('App\Models\Bookmark');
-        return $this->belongsTo('App\Models\Like');
-        return $this->belongsTo('App\Models\Favorite');
+        return $this->hasMany('App\Models\Picture');
+        return $this->hasMany('App\Models\Bookmark');
+        return $this->hasMany('App\Models\Like');
+        return $this->hasMany('App\Models\Favorite');
     }
 }

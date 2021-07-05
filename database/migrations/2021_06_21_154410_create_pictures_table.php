@@ -19,7 +19,7 @@ class CreatePicturesTable extends Migration
                 $table->string('title');
                 $table->string('caption');
                 $table->string('pict_url');
-                $table->bigInteger('cat_id')->unsigned();
+                $table->bigInteger('category_id')->unsigned();
                 $table->bigInteger('user_id')->unsigned();
                 $table->timestamps();
             });
@@ -27,7 +27,7 @@ class CreatePicturesTable extends Migration
 
 
         Schema::table('pictures', function (Blueprint $table) {
-            $table->foreign('cat_id')->references('id')->on('categories')
+            $table->foreign('category_id')->references('id')->on('categories')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');

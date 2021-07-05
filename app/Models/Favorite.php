@@ -12,12 +12,17 @@ class Favorite extends Model
     protected $table = 'favorites';
 
     protected $fillable = [
-        'cat_id',
+        'category_id',
         'user_id'
     ];
 
-    public function picture() {
+    public function category()
+    {
         return $this->hasMany(Category::class);
+    }
+
+    public function user()
+    {
         return $this->hasMany(User::class);
     }
 }
