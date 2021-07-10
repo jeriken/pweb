@@ -105,6 +105,8 @@ Route::group([
     Route::get('index', [PictureController::class, 'index']);
     Route::get('post/{id}', [PictureController::class, 'postby']);
     Route::get('show/{id}', [PictureController::class, 'show']);
+    Route::get('related/{id}', [PictureController::class, 'related']);
+    Route::get('search', [PictureController::class, 'search']);
 
     Route::group([
         'middleware' => 'auth:api'

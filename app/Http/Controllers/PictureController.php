@@ -29,9 +29,34 @@ class PictureController extends BaseController
      */
     public function postby($id)
     {
-        $picture = Picture::where("user_id",$id)->first();
+        $picture = Picture::get()->where("user_id",$id);
 
-        return $this->sendResponse(new PictureResource($picture), 'Picture retrieved successfully.');
+        return $this->sendResponse(PictureResource::collection($picture), 'Picture retrieved successfully.');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function related($id)
+    {
+        $picture = Picture::where("category_id",$id)->get();
+
+        return $this->sendResponse(PictureResource::collection($picture), 'Picture retrieved successfully.');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $input = $request->all();
+        $picture = Picture::query()->where('title', 'LIKE', "%{$input['q']}%")->orWhere('caption', 'LIKE', "%{$input['q']}%")->get();
+
+        return $this->sendResponse(PictureResource::collection($picture), 'Picture retrieved successfully.');
     }
 
     /**
