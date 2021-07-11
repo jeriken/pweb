@@ -16,8 +16,8 @@ class Favorite extends JsonResource
     {
         return [
             'id' => $this->id,
-            'cat_id' => $this->category,
-            'user_id' => $this->user,
+            'category_id' => $this->category_id,
+            'user_id' => $this->user_id,
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),
         ];

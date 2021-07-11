@@ -43,7 +43,7 @@ class FavoriteController extends BaseController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'cat_id' => 'required',
+            'category_id' => 'required',
             'user_id' => 'required',
         ]);
 

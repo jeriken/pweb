@@ -43,7 +43,7 @@ class BookmarkController extends BaseController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'pict_id' => 'required',
+            'picture_id' => 'required',
             'user_id' => 'required',
         ]);
 
